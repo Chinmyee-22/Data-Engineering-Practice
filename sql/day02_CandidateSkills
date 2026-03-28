@@ -1,0 +1,25 @@
+-- Day 2: Candidates per skill
+-- Source: DataLemur
+
+-- Problem:
+-- For each skill, find the number of candidates.
+-- Then order the results by count of candidates in descending order.
+
+-- Table Schema:
+-- candidates(candidate_id, skill)
+
+-- Approach:
+-- 1. Count candidate_id
+-- 2. Group By skill
+-- 3. Order results in descending order
+
+-- Concepts Used:
+-- Aggregate (COUNT), Group BY, ORDER BY
+
+
+SELECT 
+  skill, 
+  COUNT(candidate_id) AS candidate_count 
+FROM candidates
+GROUP BY skill
+ORDER BY candidate_count DESC;
