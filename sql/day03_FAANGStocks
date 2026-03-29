@@ -1,0 +1,25 @@
+-- Day 3: FAANG Stocks - Always Above $100
+-- Source: DataLemur
+
+-- Problem:
+-- Find all FAANG stocks whose open share price was always greater than $100.
+-- Return the ticker and its minimum open price.
+
+-- Table Schema:
+-- stock_prices(date, ticker, open, high, low, close)
+
+-- Approach:
+-- 1. Group rows by ticker (each row in output represents one stock)
+-- 2. Find the minimum open price for each ticker
+-- 3. Filter only those tickers where the minimum open price is greater than 100
+--    (ensures all open prices for that stock are above 100)
+
+-- Concepts Used:
+-- Aggregate (MIN), GROUP BY, HAVING
+
+SELECT
+  ticker,
+  MIN(open) AS min
+FROM stock_prices
+GROUP BY ticker
+HAVING MIN(open) > 100;
