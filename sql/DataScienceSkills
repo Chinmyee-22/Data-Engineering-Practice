@@ -1,0 +1,28 @@
+-- Day 4: Data Science Skills (All Required Skills)
+-- Source: DataLemur (LinkedIn)
+
+-- Problem:
+-- Find the candidates who possess all of the required skills:
+-- Python, Tableau, and PostgreSQL.
+-- Return candidate IDs sorted in ascending order.
+
+-- Table Schema:
+-- candidates(candidate_id, skill)
+
+-- Approach:
+-- 1. Filter only the required skills (Python, Tableau, PostgreSQL)
+-- 2. Group by candidate_id (each row represents one candidate)
+-- 3. Count the number of matching skills per candidate
+-- 4. Keep only those candidates who have all 3 skills
+-- 5. Sort results by candidate_id in ascending order
+
+-- Concepts Used:
+-- WHERE, GROUP BY, HAVING, COUNT()
+
+SELECT 
+  candidate_id
+FROM candidates
+WHERE skill IN ('Python', 'Tableau', 'PostgreSQL')
+GROUP BY candidate_id
+HAVING COUNT(skill) = 3
+ORDER BY candidate_id;
