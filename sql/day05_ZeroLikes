@@ -1,0 +1,28 @@
+-- Day 5: Facebook Pages with Zero Likes
+-- Source: DataLemur
+
+-- Problem:
+-- Find the IDs of Facebook pages that have zero likes.
+-- Return the results sorted in ascending order of page IDs.
+
+-- Table Schema:
+-- pages(page_id, page_name)
+-- page_likes(user_id, page_id, liked_date)
+
+-- Approach:
+-- 1. Start with the pages table (contains all pages)
+-- 2. LEFT JOIN with page_likes on page_id to bring in like information
+-- 3. Identify pages with no matching likes (NULL values from right table)
+-- 4. Filter those rows where page_likes.page_id is NULL
+-- 5. Sort results by page_id in ascending order
+
+-- Concepts Used:
+-- LEFT JOIN, NULL filtering, ORDER BY
+
+SELECT 
+  p.page_id
+FROM pages p
+LEFT JOIN page_likes pl 
+  ON p.page_id = pl.page_id
+WHERE pl.page_id IS NULL
+ORDER BY p.page_id;
