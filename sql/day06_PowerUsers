@@ -1,0 +1,35 @@
+-- Day 6: Top 2 Power Users (Microsoft Teams Messages)
+-- Source: DataLemur
+
+-- Problem:
+-- Identify the top 2 users who sent the highest number of messages 
+-- on Microsoft Teams in August 2022.
+-- Return the sender_id and total message count.
+-- Sort the results in descending order of message count.
+
+-- Table Schema:
+-- messages(message_id, sender_id, receiver_id, content, sent_date)
+
+-- Approach:
+-- 1. Filter messages to only include those sent in August 2022
+-- 2. Group rows by sender_id (each row represents one user)
+-- 3. Count the number of messages sent by each user
+-- 4. Sort users by message count in descending order
+-- 5. Limit the result to top 2 users
+
+-- Concepts Used:
+-- WHERE, GROUP BY, COUNT(), ORDER BY, LIMIT
+
+SELECT 
+  sender_id, 
+  COUNT(message_id) AS message_count
+FROM messages
+WHERE EXTRACT(MONTH FROM sent_date) = 8
+  AND EXTRACT(YEAR FROM sent_date) = 2022
+GROUP BY sender_id
+ORDER BY message_count DESC
+LIMIT 2;
+
+-- Note:
+-- A more efficient approach is to use date range filtering instead of EXTRACT,
+-- as it performs better on indexed columns.
