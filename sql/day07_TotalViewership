@@ -1,0 +1,25 @@
+-- Day 7: Laptop vs Mobile Viewership 
+-- Source: DataLemur
+
+-- Problem:
+-- Calculate the total viewership for laptops and mobile devices.
+-- Mobile devices are defined as the sum of tablet and phone viewership.
+-- Return the total laptop viewership as laptop_views
+-- and total mobile viewership as mobile_views.
+
+-- Table Schema:
+-- viewership(user_id, device_type, view_time)
+
+-- Approach:
+-- 1. Scan the entire table without grouping
+-- 2. Use conditional aggregation to count laptop views
+-- 3. Use conditional aggregation to count tablet and phone views as mobile views
+-- 4. Return both counts in a single row
+
+-- Concepts Used:
+-- CASE WHEN, SUM(), Conditional Aggregation
+
+SELECT
+  SUM(CASE WHEN device_type = 'laptop' THEN 1 ELSE 0 END) AS laptop_views,
+  SUM(CASE WHEN device_type IN ('tablet', 'phone') THEN 1 ELSE 0 END) AS mobile_views
+FROM viewership;
