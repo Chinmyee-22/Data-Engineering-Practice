@@ -1,0 +1,50 @@
+-- Day 8: Count Companies with Duplicate Job Listings -- Yet to post
+-- Source: DataLemur
+
+-- Problem:
+-- Count the number of companies that have posted duplicate job listings.
+-- A duplicate job listing is defined as two or more listings within the same company
+-- that have the exact same title and description.
+
+-- Table Schema:
+-- job_listings(job_id, company_id, title, description)
+
+-- Approach:
+-- 1. Identify duplicate job groups by grouping on company_id, title, and description
+-- 2. Use HAVING COUNT(*) > 1 to filter only duplicate listings
+-- 3. From these duplicate groups, count distinct company_id values
+--    to get the total number of companies with duplicate postings
+
+-- Concepts Used:
+-- GROUP BY, HAVING, COUNT(), COUNT(DISTINCT), Subquery, CTE
+
+--------------------------------------------------------------------------------
+-- Solution 1: Using Subquery
+--------------------------------------------------------------------------------
+
+SELECT COUNT(DISTINCT company_id) AS duplicate_companies
+FROM (
+  SELECT 
+    company_id,
+    title,
+    description
+  FROM job_listings
+  GROUP BY company_id, title, description
+  HAVING COUNT(*) > 1
+) AS duplicate_jobs;
+
+--------------------------------------------------------------------------------
+-- Solution 2: Using CTE
+--------------------------------------------------------------------------------
+
+WITH duplicate_jobs AS (
+  SELECT 
+    company_id,
+    title,
+    description
+  FROM job_listings
+  GROUP BY company_id, title, description
+  HAVING COUNT(*) > 1
+)
+SELECT COUNT(DISTINCT company_id) AS duplicate_companies
+FROM duplicate_jobs;
