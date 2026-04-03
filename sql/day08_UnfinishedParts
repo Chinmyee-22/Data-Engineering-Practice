@@ -1,0 +1,24 @@
+-- Day 8: Unfinished Parts in Assembly
+-- Source: DataLemur (Tesla)
+
+-- Problem:
+-- Identify parts that have begun the assembly process but are not yet finished.
+-- An unfinished part is defined as one with a NULL finish_date.
+-- Return the part and its corresponding assembly_step.
+
+-- Table Schema:
+-- parts_assembly(part, finish_date, assembly_step)
+
+-- Approach:
+-- 1. Scan the parts_assembly table
+-- 2. Identify rows where finish_date is NULL (unfinished parts)
+-- 3. Select part and assembly_step for those rows
+
+-- Concepts Used:
+-- WHERE, NULL filtering
+
+SELECT 
+  part, 
+  assembly_step
+FROM parts_assembly
+WHERE finish_date IS NULL;
