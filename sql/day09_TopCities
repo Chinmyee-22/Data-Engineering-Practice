@@ -1,0 +1,33 @@
+-- Day 9: Top 3 Cities with Most Completed Trade Orders
+-- Source: DataLemur
+
+-- Problem:
+-- Retrieve the top 3 cities that have the highest number of completed trade orders.
+-- Return the city name and the corresponding number of completed orders.
+-- Sort the results in descending order of total orders.
+
+-- Table Schema:
+-- trades(order_id, user_id, quantity, status, date, price)
+-- users(user_id, city, email, signup_date)
+
+-- Approach:
+-- 1. Join trades and users tables using user_id to get city information
+-- 2. Filter only completed trades using WHERE clause
+-- 3. Group by city (each row represents one city)
+-- 4. Count number of completed trades per city
+-- 5. Sort results in descending order of total orders
+-- 6. Limit output to top 3 cities
+
+-- Concepts Used:
+-- JOIN, WHERE, GROUP BY, COUNT(), ORDER BY, LIMIT
+
+SELECT 
+  u.city, 
+  COUNT(*) AS total_orders
+FROM trades t
+JOIN users u
+  ON t.user_id = u.user_id
+WHERE t.status = 'Completed'
+GROUP BY u.city
+ORDER BY total_orders DESC
+LIMIT 3;
