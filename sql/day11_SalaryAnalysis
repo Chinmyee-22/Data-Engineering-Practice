@@ -1,0 +1,27 @@
+-- Day 11: Employees Earning More Than Their Managers
+-- Source: DataLemur
+
+-- Problem:
+-- Identify employees who earn more than their direct managers.
+-- Return the employee's ID and name.
+
+-- Table Schema:
+-- employee(employee_id, name, salary, department_id, manager_id)
+
+-- Approach:
+-- 1. Use a self join because employee and manager data are in the same table
+-- 2. Treat one copy of the table as employee (e) and the other as manager (m)
+-- 3. Join employee.manager_id with manager.employee_id
+-- 4. Compare employee salary with manager salary
+-- 5. Return employee_id and employee name for employees earning more than their managers
+
+-- Concepts Used:
+-- Self Join, WHERE, Table Aliases
+
+SELECT 
+  e.employee_id,
+  e.name AS employee_name
+FROM employee e
+JOIN employee m
+  ON e.manager_id = m.employee_id
+WHERE e.salary > m.salary;
