@@ -1,0 +1,29 @@
+-- Day 10: Average Review Ratings per Product per Month
+-- Source: DataLemur (Amazon SQL Interview)
+
+-- Problem:
+-- Retrieve the average star rating for each product grouped by month.
+-- Output the month (as a numerical value), product ID, and average star rating
+-- rounded to two decimal places.
+-- Sort the results first by month and then by product ID.
+
+-- Table Schema:
+-- reviews(review_id, user_id, submit_date, product_id, stars)
+
+-- Approach:
+-- 1. Extract month from submit_date using EXTRACT(MONTH)
+-- 2. Group by both month and product_id (each row represents one product in a specific month)
+-- 3. Calculate average stars using AVG()
+-- 4. Round the average to 2 decimal places using ROUND()
+-- 5. Sort results by month and then by product_id
+
+-- Concepts Used:
+-- EXTRACT(), GROUP BY, AVG(), ROUND(), ORDER BY
+
+SELECT 
+  EXTRACT(MONTH FROM submit_date) AS mth,
+  product_id AS product,
+  ROUND(AVG(stars), 2) AS avg_stars
+FROM reviews
+GROUP BY mth, product_id
+ORDER BY mth, product;
