@@ -1,0 +1,31 @@
+-- Day 12: Final Account Balance After Deposits and Withdrawals
+-- Source: DataLemur (PayPal SQL Interview)
+
+-- Problem:
+-- Calculate the final account balance for each account by considering
+-- all deposits and withdrawals.
+-- Deposits add to the balance, while withdrawals subtract from it.
+
+-- Table Schema:
+-- transactions(transaction_id, account_id, amount, transaction_type)
+
+-- Approach:
+-- 1. Each row represents a transaction (either Deposit or Withdrawal)
+-- 2. Convert Deposit amounts to positive values
+-- 3. Convert Withdrawal amounts to negative values
+-- 4. Sum all transformed values per account
+-- 5. Group by account_id to get one row per account
+
+-- Concepts Used:
+-- GROUP BY, SUM(), CASE WHEN, Conditional Aggregation
+
+SELECT 
+  account_id,
+  SUM(
+    CASE 
+      WHEN transaction_type = 'Deposit' THEN amount
+      WHEN transaction_type = 'Withdrawal' THEN -amount
+    END
+  ) AS final_balance
+FROM transactions
+GROUP BY account_id;
