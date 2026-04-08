@@ -1,0 +1,31 @@
+-- Day 13: Users Who Confirmed on the Second Day
+-- Source: DataLemur (TikTok SQL Interview)
+
+-- Problem:
+-- Find the user IDs of users who did not confirm their sign-up on the first day,
+-- but confirmed on the second day.
+
+-- Table Schema:
+-- emails(email_id, user_id, signup_date)
+-- texts(text_id, email_id, signup_action, action_date)
+
+-- Approach 1 (Simple - DataLemur):
+-- 1. Join emails and texts using email_id
+-- 2. Filter rows where:
+--    a) action_date = signup_date + 1 day (second day)
+--    b) signup_action = 'Confirmed'
+-- 3. Return distinct user_id
+
+-- Note:
+-- This works under the assumption that users who confirm on day 2
+-- did not confirm on day 1.
+
+-- Concepts Used:
+-- JOIN, WHERE, DISTINCT, Date Arithmetic
+
+SELECT DISTINCT e.user_id
+FROM emails e
+JOIN texts t
+  ON e.email_id = t.email_id
+WHERE t.action_date = e.signup_date + INTERVAL '1 day'
+  AND t.signup_action = 'Confirmed';
