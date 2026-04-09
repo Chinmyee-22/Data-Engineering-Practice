@@ -14,7 +14,3 @@ I am solving SQL problems consistently and documenting each solution in a clean,
 - Window functions
 - Interview-style problem solving
 
-## Repository Structure
-
-```bash
-sql/
