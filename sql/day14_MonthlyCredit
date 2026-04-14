@@ -1,0 +1,28 @@
+-- Day 14: Monthly Credit Card Issuance Disparity
+-- Source: DataLemur (JPMorgan Chase SQL Interview)
+
+-- Problem:
+-- For each credit card, calculate the difference between the highest and lowest
+-- number of issued cards across all months.
+-- Return the card_name and the difference.
+-- Sort the results in descending order of the difference.
+
+-- Table Schema:
+-- monthly_cards_issued(card_name, issued_amount, issue_month, issue_year)
+
+-- Approach:
+-- 1. Group data by card_name (each row represents one card)
+-- 2. Use MAX() to find the highest issued_amount for each card
+-- 3. Use MIN() to find the lowest issued_amount for each card
+-- 4. Subtract MIN from MAX to get the difference
+-- 5. Sort results by difference in descending order
+
+-- Concepts Used:
+-- GROUP BY, MAX(), MIN(), ORDER BY
+
+SELECT
+  card_name,
+  MAX(issued_amount) - MIN(issued_amount) AS difference
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY difference DESC;
