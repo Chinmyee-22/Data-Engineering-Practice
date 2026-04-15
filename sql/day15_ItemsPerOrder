@@ -1,0 +1,33 @@
+-- Day 15: Mean Number of Items per Order (Weighted Average)
+-- Source: DataLemur (Alibaba SQL Interview)
+
+-- Problem:
+-- Calculate the mean number of items per order.
+-- The table stores item counts and how many orders had that count.
+-- Return the mean rounded to 1 decimal place.
+
+-- Table Schema:
+-- items_per_order(item_count, order_occurrences)
+
+-- Approach:
+-- 1. Each row represents a frequency distribution:
+--    - item_count = number of items in an order
+--    - order_occurrences = how many orders had that count
+-- 2. Compute total items using:
+--    SUM(item_count * order_occurrences)
+-- 3. Compute total number of orders using:
+--    SUM(order_occurrences)
+-- 4. Divide total items by total orders to get mean
+-- 5. Cast to DECIMAL to avoid integer division
+-- 6. Round result to 1 decimal place
+
+-- Concepts Used:
+-- SUM(), Weighted Average, Type Casting, ROUND()
+
+SELECT 
+  ROUND(
+    SUM(item_count::DECIMAL * order_occurrences)
+    / SUM(order_occurrences),
+    1
+  ) AS mean
+FROM items_per_order;
