@@ -1,0 +1,27 @@
+-- Day 16: Top 3 Most Profitable Drugs
+-- Source: DataLemur (CVS Health SQL Interview)
+
+-- Problem:
+-- Identify the top 3 most profitable drugs and the total profit for each.
+-- Profit is defined as:
+--   total_profit = total_sales - cogs
+-- Return the results sorted from highest to lowest profit.
+
+-- Table Schema:
+-- pharmacy_sales(product_id, units_sold, total_sales, cogs, manufacturer, drug)
+
+-- Approach:
+-- 1. Calculate profit for each drug using (total_sales - cogs)
+-- 2. Select drug and computed profit
+-- 3. Sort results in descending order of profit
+-- 4. Limit output to top 3 drugs
+
+-- Concepts Used:
+-- Arithmetic Operations, ORDER BY, LIMIT
+
+SELECT 
+  drug,
+  (total_sales - cogs) AS total_profit
+FROM pharmacy_sales
+ORDER BY total_profit DESC
+LIMIT 3;
