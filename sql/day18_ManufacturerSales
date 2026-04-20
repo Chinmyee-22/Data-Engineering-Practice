@@ -1,0 +1,30 @@
+-- Day 18: Total Drug Sales per Manufacturer (Formatted in Millions)
+-- Source: DataLemur (CVS Health SQL Interview)
+
+-- Problem:
+-- Calculate the total drug sales for each manufacturer.
+-- Round the total sales to the nearest million and format as "$X million".
+-- Sort results in descending order of total sales.
+-- In case of ties, sort alphabetically by manufacturer name.
+
+-- Table Schema:
+-- pharmacy_sales(product_id, units_sold, total_sales, cogs, manufacturer, drug)
+
+-- Approach:
+-- 1. Group data by manufacturer (one row per manufacturer)
+-- 2. Calculate total sales using SUM(total_sales)
+-- 3. Convert total sales to millions by dividing by 1,000,000
+-- 4. Round to the nearest million using ROUND()
+-- 5. Format output as "$X million" using string concatenation
+-- 6. Sort by actual total sales (not rounded value) in descending order
+-- 7. Break ties using manufacturer name in ascending order
+
+-- Concepts Used:
+-- GROUP BY, SUM(), ROUND(), String Concatenation, ORDER BY
+
+SELECT
+  manufacturer,
+  '$' || ROUND(SUM(total_sales) / 1000000.0) || ' million' AS sales_mil
+FROM pharmacy_sales
+GROUP BY manufacturer
+ORDER BY SUM(total_sales) DESC, manufacturer;
