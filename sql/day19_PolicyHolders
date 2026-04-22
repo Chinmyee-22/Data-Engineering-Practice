@@ -1,0 +1,26 @@
+-- Day 19: Policy Holders with 3 or More Calls
+-- Source: DataLemur (UnitedHealth Group SQL Interview)
+
+-- Problem:
+-- Find how many policy holders made three or more calls.
+-- Each call is uniquely identified by case_id.
+
+-- Table Schema:
+-- callers(policy_holder_id, case_id, call_category, call_date, call_duration_secs)
+
+-- Approach:
+-- 1. Group records by policy_holder_id (each row represents one policy holder)
+-- 2. Count distinct case_id values to determine number of calls per policy holder
+-- 3. Use HAVING to filter policy holders with 3 or more calls
+-- 4. Wrap the result in a subquery and count how many such policy holders exist
+
+-- Concepts Used:
+-- GROUP BY, COUNT(DISTINCT), HAVING, Subquery
+
+SELECT COUNT(*) AS policy_holder_count
+FROM (
+    SELECT policy_holder_id
+    FROM callers
+    GROUP BY policy_holder_id
+    HAVING COUNT(DISTINCT case_id) >= 3
+) t;
