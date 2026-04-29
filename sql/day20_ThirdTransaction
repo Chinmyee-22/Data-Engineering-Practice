@@ -1,0 +1,35 @@
+-- Day 20: Third Transaction per User
+-- Source: DataLemur (Uber SQL Interview)
+
+-- Problem:
+-- Retrieve the third transaction for each user.
+-- Return user_id, spend, and transaction_date.
+
+-- Table Schema:
+-- transactions(user_id, spend, transaction_date)
+
+-- Approach:
+-- 1. Use ROW_NUMBER() to assign order to transactions per user
+-- 2. Partition by user_id to separate each user’s transactions
+-- 3. Order transactions by transaction_date
+-- 4. Filter rows where row_number = 3
+
+-- Concepts Used:
+-- Window Functions, ROW_NUMBER(), PARTITION BY, ORDER BY
+
+SELECT 
+  user_id,
+  spend,
+  transaction_date
+FROM (
+  SELECT 
+    user_id,
+    spend,
+    transaction_date,
+    ROW_NUMBER() OVER (
+      PARTITION BY user_id 
+      ORDER BY transaction_date
+    ) AS rn
+  FROM transactions
+) t
+WHERE rn = 3;
