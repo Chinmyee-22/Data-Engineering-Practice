@@ -1,0 +1,41 @@
+-- Day 23: Second Highest Salary
+-- Source: DataLemur (FAANG SQL Interview)
+
+-- Problem:
+-- Find the second highest salary among all employees.
+-- If multiple employees share the same salary, consider it only once.
+
+-- Table Schema:
+-- employee(employee_id, name, salary, department_id, manager_id)
+
+-- Approach 1 (Sorting + Offset):
+-- 1. Select distinct salaries to remove duplicates
+-- 2. Sort salaries in descending order
+-- 3. Skip the highest salary using OFFSET
+-- 4. Return the next salary using LIMIT
+
+-- Concepts Used:
+-- DISTINCT, ORDER BY, LIMIT, OFFSET
+
+SELECT DISTINCT salary AS second_highest_salary
+FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+
+--------------------------------------------------------------------------------
+-- Approach 2 (Subquery - More Robust)
+--------------------------------------------------------------------------------
+
+-- Approach:
+-- 1. Find the maximum salary
+-- 2. Find the maximum salary that is less than the highest salary
+
+-- Concepts Used:
+-- MAX(), Subquery, WHERE
+
+SELECT MAX(salary) AS second_highest_salary
+FROM employee
+WHERE salary < (
+  SELECT MAX(salary) FROM employee
+);
